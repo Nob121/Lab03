@@ -27,6 +27,7 @@ public class CalculatorController {
                 // CalculateListener class.
 		
 		this.theView.addCalculateListener(new CalculateListener());
+                this.theView.multCalculateListener(new multCalculateListener());
 	}
 	
 	class CalculateListener implements ActionListener {
@@ -47,7 +48,6 @@ public class CalculatorController {
                         secondNumber = theView.getSecondNumber();
 				
                         theModel.addTwoNumbers(firstNumber, secondNumber);
-			
                         theView.setCalcSolution(theModel.getCalculationValue());			
                     }
                     catch (NumberFormatException ex) {
@@ -61,6 +61,34 @@ public class CalculatorController {
                         theView.displayErrorMessage(
                             "Error: Generic error " + ex.getMessage());				                       
                     }
-		}		
-	}	
+                }
+        }
+        class multCalculateListener implements ActionListener {
+
+                @Override
+		public void actionPerformed(ActionEvent e) {
+			
+                    int firstNumber = 0;
+                    int secondNumber = 0;         
+                    try {
+			
+                        firstNumber = theView.getFirstMultNumber();
+                        secondNumber = theView.getSecondMultNumber();
+                        theModel.multTwoNumbers(firstNumber, secondNumber);
+			
+                        theView.setMultSolution(theModel.getMulti());			
+                    }
+                    catch (NumberFormatException ex) {
+			// Provide an error message to the console output.	
+                        System.out.println(ex);				
+                        theView.displayErrorMessage(
+                            "Error: The numbers entered must be integers.");				
+                    }
+                    catch (Exception ex) {
+                        System.out.println(ex);				
+                        theView.displayErrorMessage(
+                            "Error: Generic error " + ex.getMessage());				                       
+                    }
+                }
+        }
 } // end CalculatorController

@@ -11,6 +11,7 @@ package calculator125;
  * component, which will use it.
  **/
 
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
@@ -21,12 +22,20 @@ public class CalculatorView extends JFrame {
 	private final JTextField secondNumber = new JTextField(10);
 	private final JButton calculateButton = new JButton("Calculate");
 	private final JTextField calcSolution = new JTextField(10);
+        
+        private final JTextField firstMultNumber  = new JTextField(10);
+	private final JLabel multSignLabel    = new JLabel("*");
+	private final JTextField secondMultNumber = new JTextField(10);
+	private final JButton calculateMultButton = new JButton("Calculate");
+	private final JTextField multSolution = new JTextField(10);
 	
 	CalculatorView() {
+            setLayout(new GridLayout(2,1));
 		
 	// Sets up the view and adds the visual Java Swing components.
 		
             JPanel calcPanel = new JPanel();
+            JPanel calcPanel1 = new JPanel();
 	
         // Set the JFrame's title.    
             this.setTitle("Calculation 125");
@@ -44,7 +53,11 @@ public class CalculatorView extends JFrame {
         
             firstNumber.setHorizontalAlignment(SwingConstants.RIGHT);
             secondNumber.setHorizontalAlignment(SwingConstants.RIGHT);
-            calcSolution.setHorizontalAlignment(SwingConstants.RIGHT);           
+            calcSolution.setHorizontalAlignment(SwingConstants.RIGHT);
+         
+            firstMultNumber.setHorizontalAlignment(SwingConstants.RIGHT);
+            secondMultNumber.setHorizontalAlignment(SwingConstants.RIGHT);
+            multSolution.setHorizontalAlignment(SwingConstants.RIGHT);
             
         // Add the JTextField components, the JLabel component, and the
         //  JButton component to the JPanel named calcPanel.
@@ -54,9 +67,17 @@ public class CalculatorView extends JFrame {
             calcPanel.add(secondNumber);
             calcPanel.add(calculateButton);
             calcPanel.add(calcSolution);
+            
+            calcPanel1.add(firstMultNumber);
+            calcPanel1.add(multSignLabel);
+            calcPanel1.add(secondMultNumber);
+            calcPanel1.add(calculateMultButton);
+            calcPanel1.add(multSolution);
+            
 	
         // Then add the JPanel to the JFrame.
-            this.add(calcPanel);              		
+            this.add(calcPanel);
+            this.add(calcPanel1);
 	}
 	
         // The Controller component will use this method to determine
@@ -85,6 +106,26 @@ public class CalculatorView extends JFrame {
 		
 		calcSolution.setText(Integer.toString(solution));		
 	}
+        
+        public int getFirstMultNumber() {
+		
+		return Integer.parseInt(firstMultNumber.getText());		
+	}
+	
+	public int getSecondMultNumber() {
+		
+		return Integer.parseInt(secondMultNumber.getText());		
+	}
+	
+	public int getMultSolution() {
+		
+		return Integer.parseInt(multSolution.getText());		
+	}
+	
+	public void setMultSolution(int solution) {
+		
+		multSolution.setText(Integer.toString(solution));		
+	}
 	
 	// If the calculateButton is clicked, execute a method
 	// in the Controller named actionPerformed
@@ -92,6 +133,10 @@ public class CalculatorView extends JFrame {
 	void addCalculateListener(ActionListener listenForCalcButton) {
 		
 		calculateButton.addActionListener(listenForCalcButton);		
+	}
+        void multCalculateListener(ActionListener listenForCalcButton) {
+		
+		calculateMultButton.addActionListener(listenForCalcButton);		
 	}
 	
 	// Open a popup panel that contains the error message passed to it.
